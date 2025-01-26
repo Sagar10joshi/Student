@@ -55,7 +55,8 @@ function App() {
         <main className="flex-1 p-4">
           <Routes>
             <Route path="/students" element={<StudentsPage db={db} />} />
-            <Route path="/*" element={<Navigate to="/students" />} />
+            {/* <Route path="/*" element={<Navigate to="/students" />} /> */}
+            <Route path="/" element={<LoginPage />} />
           </Routes>
         </main>
       </div>
