@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import "./styles.css";
 
 const StudentsPage = ({ db }) => {
   const [students, setStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isViewMode, setIsViewMode] = useState(false); 
   const [showModal, setShowModal] = useState(false);
   const [newStudent, setNewStudent] = useState({
     name: "",
     class: "",
     rollNumber: "",
     section: "",
+    address: "",
+    father_name: "",
+    mother_name: "",
+    phone_no: "",
+    age: "",
+    height: "",
+    weight: "",
+    transport: "",
   });
 
-  // Fetch students from Firestore
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -25,68 +35,111 @@ const StudentsPage = ({ db }) => {
     setStudents(studentsList);
   };
 
-  // Add new student to Firestore
   const handleAddStudent = async () => {
-    if (
-      !newStudent.name ||
-      !newStudent.class ||
-      !newStudent.rollNumber ||
-      !newStudent.section
-    ) {
-      alert("Please fill out all fields before saving.");
+    setSelectedStudent(null); 
+    if (!newStudent.name || !newStudent.class || !newStudent.rollNumber || !newStudent.section) {
+      alert("Please fill out all mandatory fields before saving.");
       return;
     }
 
     await addDoc(collection(db, "students"), newStudent);
     setShowModal(false);
-    setNewStudent({ name: "", class: "", rollNumber: "", section: "" });
-    fetchStudents(); // Refresh the student list
+    resetStudentForm();
+    fetchStudents();
   };
 
-  // Delete student from Firestore
+  const handleEditStudent = async () => {
+    if (!newStudent.name || !newStudent.class || !newStudent.rollNumber || !newStudent.section) {
+      alert("Please fill out all mandatory fields before saving.");
+      return;
+    }
+
+    const studentRef = doc(db, "students", selectedStudent.id);
+    await updateDoc(studentRef, newStudent);
+    setShowModal(false);
+    setSelectedStudent(null); 
+    resetStudentForm();
+    fetchStudents();
+  };
+
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this student?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this student?");
     if (!confirmDelete) return;
 
     await deleteDoc(doc(db, "students", id));
-    fetchStudents(); // Refresh the student list
+    fetchStudents();
+  };
+
+  const handleView = (id) => {
+    const student = students.find((student) => student.id === id);
+    setSelectedStudent(student);
+    setIsViewMode(true); 
+    setNewStudent(student); // fill the student data for viewing
+    setShowModal(true); // Show the modal
+  };
+
+  const handleEdit = (id) => {
+    const student = students.find((student) => student.id === id);
+    setSelectedStudent(student);
+    setNewStudent(student); // already filled form with student data
+    setIsViewMode(false); // change to Edit mode
+    setShowModal(true);
+  };
+
+  const resetStudentForm = () => {
+    setNewStudent({
+      name: "",
+      class: "",
+      rollNumber: "",
+      section: "",
+      address: "",
+      father_name: "",
+      mother_name: "",
+      phone_no: "",
+      age: "",
+      height: "",
+      weight: "",
+      transport: "",
+    });
   };
 
   return (
-    <div>
-      <h2 className="text-2xl mb-4">Students</h2>
+    <div className="container">
+      <h2 className="text-2xl mb-4">Students Details :-</h2> <br /> <br />
       <button
-        className="mb-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-        onClick={() => setShowModal(true)}
+        className="add-student-btn"
+        onClick={() => {
+          setSelectedStudent(null); // Clear selectedStudent
+          resetStudentForm(); // Reset form fields
+          setIsViewMode(false); // Ensure it's not in View mode
+          setShowModal(true); // Open modal
+        }}
       >
         Add Student
       </button>
-      <table className="table-auto w-full border">
+      <table>
         <thead>
-          <tr className="bg-gray-200">
-            <th className="border px-4 py-2">ID</th>
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Class</th>
-            <th className="border px-4 py-2">Section</th>
-            <th className="border px-4 py-2">Roll Number</th>
-            <th className="border px-4 py-2">Actions</th>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Section</th>
+            <th>Roll Number</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {students.map((student) => (
             <tr key={student.id}>
-              <td className="border px-4 py-2">{student.id}</td>
-              <td className="border px-4 py-2">{student.name}</td>
-              <td className="border px-4 py-2">{student.class}</td>
-              <td className="border px-4 py-2">{student.section}</td>
-              <td className="border px-4 py-2">{student.rollNumber}</td>
-              <td className="border px-4 py-2">
-                <button
-                  className="text-red-500 hover:underline"
-                  onClick={() => handleDelete(student.id)}
-                >
+              <td>{student.id}</td>
+              <td>{student.name}</td>
+              <td>{student.class}</td>
+              <td>{student.section}</td>
+              <td>{student.rollNumber}</td>
+              <td>
+                <button onClick={() => handleView(student.id)}>View</button>
+                <button onClick={() => handleEdit(student.id)}>Edit</button>
+                <button className="red" onClick={() => handleDelete(student.id)}>
                   Delete
                 </button>
               </td>
@@ -95,59 +148,35 @@ const StudentsPage = ({ db }) => {
         </tbody>
       </table>
 
+      {/* Modal to Add/View/Edit Student info */}
       {showModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-md w-96">
-            <h3 className="text-lg mb-4">Add New Student</h3>
-            <input
-              type="text"
-              placeholder="Name"
-              value={newStudent.name}
-              className="w-full border mb-2 p-2"
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, name: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Class"
-              value={newStudent.class}
-              className="w-full border mb-2 p-2"
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, class: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Section"
-              value={newStudent.section}
-              className="w-full border mb-2 p-2"
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, section: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Roll Number"
-              value={newStudent.rollNumber}
-              className="w-full border mb-2 p-2"
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, rollNumber: e.target.value })
-              }
-            />
-            <div className="flex justify-end gap-2">
-              <button
-                className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-                onClick={() => setShowModal(false)}
-              >
-                Cancel
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{isViewMode ? "View Student" : selectedStudent ? "Edit Student" : "Add New Student"}</h3>
+            <div className="form-container">
+              {Object.keys(newStudent).map((key) => (
+                <div className="form-group" key={key}>
+                  <label>{key.replace("_", " ").toUpperCase()}</label>
+                  <input
+                    type="text"
+                    value={newStudent[key]}
+                    onChange={(e) =>
+                      !isViewMode && setNewStudent({ ...newStudent, [key]: e.target.value })
+                    }
+                    readOnly={isViewMode} // Disable input if in View mode
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="modal-buttons">
+              <button className="cancel" onClick={() => setShowModal(false)}>
+                Close
               </button>
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                onClick={handleAddStudent}
-              >
-                Save
-              </button>
+              {!isViewMode && (
+                <button onClick={selectedStudent ? handleEditStudent : handleAddStudent}>
+                  {selectedStudent ? "Save Changes" : "Save"}
+                </button>
+              )}
             </div>
           </div>
         </div>

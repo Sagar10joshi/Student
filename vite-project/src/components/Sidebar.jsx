@@ -1,24 +1,26 @@
 // components/Sidebar.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './sidestyle.css'
 
 const Sidebar = ({ onLogout }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
-      <button
-        className="p-4 text-left hover:bg-gray-700"
+    <div className="bar">
+      {/* <button
+        className="btn"
         onClick={() => navigate('/students')}
       >
         Students Page
-      </button>
+      </button> */}
       <button
-        className="p-4 text-left hover:bg-gray-700"
+        className="btn"
         onClick={onLogout}
       >
         Logout
-      </button>
+      </button> <br />
+       <br />  
     </div>
   );
 };

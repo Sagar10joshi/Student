@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginPage.css'; // Import external CSS for the animations and styling
+import './LoginPage.css'; 
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');

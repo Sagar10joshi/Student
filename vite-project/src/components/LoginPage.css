@@ -1,4 +1,4 @@
-/* Add a gradient background to the page */
+
 *{
   margin: 0;
   padding: 0;
@@ -12,7 +12,6 @@
     animation: fadeIn 1s ease-out;
   }
   
-  /* Center the form with a nice rounded container */
   .login-form {
     background-color: #fff;
     padding: 2rem;
@@ -23,7 +22,6 @@
     animation: slideUp 0.6s ease-out;
   }
   
-  /* Title styling with a smooth fade-in effect */
   .login-title {
     text-align: center;
     font-size: 2rem;
@@ -32,7 +30,6 @@
     animation: fadeInTitle 1s ease-out;
   }
   
-  /* Input styling with smooth border animations */
   .input-group {
     margin-bottom: 1.5rem;
   }
@@ -58,7 +55,6 @@
     box-shadow: 0 0 5px rgba(110, 124, 252, 0.5);
   }
   
-  /* Button styling with hover animation */
   .submit-button {
     width: 100%;
     padding: 1rem;
@@ -75,7 +71,6 @@
     background-color: #5c68d0;
   }
   
-  /* Keyframe animations */
   @keyframes fadeIn {
     from {
       opacity: 0;

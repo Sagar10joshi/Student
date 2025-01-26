@@ -1,0 +1,113 @@
+
+.add-student-btn{
+  background-color: #465fed;
+}
+
+.add-student-btn:hover{
+  background-color: #2b3fb0;
+  color: white;
+}
+
+
+td button {
+    /* padding-left: 5px; */
+    margin-left: 5px;
+}
+
+.red{
+    background-color: #e53935;
+}
+
+.red:hover{
+    background-color: rgb(148, 6, 6);
+}
+.container {
+    margin: 0 auto;
+    padding: 24px;
+    max-width: 1200px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Modal Styling */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    height: 80%;
+    overflow-y: scroll;
+  }
+
+  p{
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  button.cancel {
+    background-color: #f44336;
+  }
+  
+  button.cancel:hover {
+    background-color: #e53935;
+  }
+  
