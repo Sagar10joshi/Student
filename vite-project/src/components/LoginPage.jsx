@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+// import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './LoginPage.css'; 
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Correctly defined here
+  // const navigate = useNavigate(); // Correctly defined here
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogin(email, password);
   };
 
-  const handleReset = ()=>{
-    navigate('/students');
-  }
+  // const handleReset = ()=>{
+  //   navigate('/students');
+  // }
 
   return (
     <div className="login-container">
@@ -40,7 +40,7 @@ const LoginPage = ({ onLogin }) => {
             required
           />
         </div>
-        <button type="submit" className="submit-button" onClick={handleReset}>
+        <button type="submit" className="submit-button">
           Login
         </button>
       </form>
