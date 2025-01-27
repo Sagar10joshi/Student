@@ -1,4 +1,4 @@
-
+/* 
 .add-student-btn{
   background-color: #465fed;
 }
@@ -10,7 +10,6 @@
 
 
 td button {
-    /* padding-left: 5px; */
     margin-left: 5px;
 }
 
@@ -109,4 +108,161 @@ td button {
   button.cancel:hover {
     background-color: #e53935;
   }
+   */
+
+
+
+
+
+
+
+
+   body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+  }
   
+  .students-page {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .new-student-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .search-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-container input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .students-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .students-table th,
+  .students-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f1f3f5;
+  }
+  
+  .students-table th {
+    background-color: #f9fafb;
+    color: #6c757d;
+  }
+  
+  /* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 500px;
+  max-height: 80vh; /* Limit the modal height to 80% of the viewport */
+  overflow-y: auto; /* Enable scrolling if the content overflows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Add smooth scrolling for the modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* Buttons inside modal */
+.modal-buttons button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.modal-buttons .cancel {
+  background-color: #ddd;
+  color: #000;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+#red:hover{
+  background-color: red;
+  color: white;
+}
+
+#green:hover{
+  background-color: rgb(109, 255, 47);
+  color: black;
+}
+
+#blue:hover{
+  background-color: rgb(89, 176, 243);
+  color: black;
+}
+#black{
+  background-color: #000;
+  color: white;
+}
+
+#black:hover{
+  background-color: #000000b0;
+  color: white;
+}
+
+#dark{
+  background-color: rgb(248, 117, 73);
+}
